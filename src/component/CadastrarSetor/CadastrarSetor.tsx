@@ -5,7 +5,6 @@ import InputGroup from '../../compenentes-compartilhados/InputGroup/InputGroup';
 import { Link } from 'react-router-dom';
 import Button from '../../compenentes-compartilhados/Button/Button';
 import { listarSetores, buscarSetores } from './Servico/Servico';
-import { listarSetores, buscarSetores} from './Servico/Servico';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import Swal from 'sweetalert2';
 

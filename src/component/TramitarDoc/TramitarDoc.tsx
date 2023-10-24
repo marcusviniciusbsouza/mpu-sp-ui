@@ -38,7 +38,7 @@ function TramitarDoc() {
 
                 </Grid>
                     <Grid item xs={2}>
-                        <Button value="Tramitar" onClick={MensagemDeAlerta} color="grey" />
+                        <Button onClick={MensagemDeAlerta} color="primary" >Tramitar</Button>
                     </Grid>
                     <Grid item xs={2}>
                         <Button value="Cancelar" color="danger" 

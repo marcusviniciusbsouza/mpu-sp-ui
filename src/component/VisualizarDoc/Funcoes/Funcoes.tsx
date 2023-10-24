@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../VisualizarDoc.css'
 import Button from "../../../compenentes-compartilhados/Button/Button"; 
 import { Grid } from "@mui/material";

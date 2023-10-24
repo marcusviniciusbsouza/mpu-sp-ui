@@ -1,9 +1,13 @@
 import React from 'react'
+
 import { Dialog, DialogTitle } from '@mui/material'
 import CircularProgressWithLabel from '../../compenentes-compartilhados/CircularProgressWithLabel/CircularProgressWithLabel';
 import './AssinarComCertificadoDigital.css'
-import Conteudo from '../../compenentes-compartilhados/Conteudo/Conteudo';
+import { Dialog, DialogTitle} from '@mui/material'
+import CircularProgressWithLabel from '../../compenentes-compartilhados/CircularProgressWithLabel/CircularProgressWithLabel';
+import './AssinarComCertificadoDigital.css';
 
+import Conteudo from '../../compenentes-compartilhados/Conteudo/Conteudo';
 
 export interface SimpleDialogProps {
     open: boolean;

@@ -25,7 +25,7 @@ function FormularioUsuario() {
 
     const usuario = new Usuario()
 
-    const [ id, setId ] = useState('');
+    const [ id ] = useState('');
     const [ nome, setNome ] = useState('');
     const [ rg, setRg ] = useState('');
     const [ cpf, setCpf ] = useState(''); 
@@ -33,7 +33,7 @@ function FormularioUsuario() {
     const [ nascimento, setNascimento ] = useState('');
     const [ endereco, setEndereco ] = useState('');
     const [ email, setEmail ] = useState('');
-    const [ telefone, setTelefone ] = useState('');
+    const [ telefone ] = useState('');
 
     function enviarFormulario(e:any) {
         e.preventDefault();

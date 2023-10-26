@@ -40,6 +40,7 @@ function Assinar(props: SimpleDialogProps) {
         } else if(opcaoAssinatura === 'senha') {
           onClose(selectedValue);
           setOpenSenha(true)
+          alert("Esse componete ainda não foi produzido")
         }
     };
 

@@ -1,23 +1,15 @@
-.box {
+.buttons{
+    margin-top: 15px;
     width: 100%;
-    padding: 40px 2%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    position: relative;
+    left: 40%;
 }
-
-.box-login {
-    padding: 20px;
-    background: white;
-    width: 400px;
-    margin: 0 auto;
-    border-radius: 6px;
+.box{
+   position: absolute;
+   width: 40%;
+   right: 30%;
 }
-
-Button {
-    width: 100%;
-    margin-top: 20px;
-
+.InputeButton{
+    position: relative;
+    left:10%;
 }

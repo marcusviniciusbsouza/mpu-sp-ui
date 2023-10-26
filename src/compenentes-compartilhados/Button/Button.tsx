@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
 if(props.color === 'primary'){
     return <button 
-            className="AppButtonPrimary"
+            className="AppButton AppButtonPrimary"
             onClick={ props.onClick }
         >
             { props.children }

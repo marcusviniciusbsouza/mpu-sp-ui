@@ -53,7 +53,7 @@ var idUsuario;
     // Adiciona o ID e o valor do input à descrição
     descricao += `${input.id}: ${input.value}# `;
   }
-}
+} 
     const modelId = document.getElementById('Modelo').value;
 
     const data = {
@@ -73,7 +73,7 @@ var idUsuario;
         localStorage.setItem('SIGLA_DOCUMENTO', sigla);
       } else {
         // Lógica para lidar com outros códigos de status de resposta, se necessário
-      }
+      } 
     };
     xhr.send(JSON.stringify(data));
   });

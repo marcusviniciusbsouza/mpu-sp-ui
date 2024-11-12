@@ -2,25 +2,24 @@ import React from 'react';
 import './App.css';
 import {} from 'react-router'
 import { Route, Routes } from 'react-router-dom';
-import Documento from '../Documento/Documento';
-import Login from '../Login/Login';
-import Mesa from '../Mesa/Mesa';
-import VisualizarDoc from '../VisualizarDoc/visualizarDoc';
-import TabelaUsuario from '../Usuario/Tabela/TabelaUsuario';
-import VisualizarDocCompleto from '../VisualizarDocCompleto/VisualizarDocCompleto';
-import FormularioUsuario from '../Usuario/FormularioUsuario';
-import UsuarioHome from '../Usuario/UsuarioHome';
-import FormularioSetor from '../Setor/FormularioSetor';
-import PaginaNaoEncontrada from '../PaginaNaoEncontrada/PaginaNaoEncontrada';
-import TramitarDoc from '../TramitarDoc/TramitarDoc';
-import CadastrarSetor from '../CadastrarSetor/CadastrarSetor';
+import Documento from '../Document/Document';
+import Login from '../User/Login/Login';
+import Mesa from '../VirtualTable/VirtualTable';
+import Visualizar from '../Document/View/View';
+import TabelaUsuario from '../User/List/UserList';
+import FormularioUsuario from '../User/User';
+import UsuarioHome from '../User/UsuarioHome';
+import FormularioSetor from '../Department/Department';
+import PaginaNaoEncontrada from '../../cross-cutting/PaginaNaoEncontrada/PaginaNaoEncontrada';
+import TramitarDoc from '../Document/Process/Process';
+import CadastrarSetor from '../Department/Department';
 
-import PermissoesUsuario from '../TelaDePermissoes/TelaDePermissoes';
+import PermissoesUsuario from '../User/Auth/TelaDePermissoes';
 
-import CadastrarOrgao from '../CadastrarOrgao/CadastrarOrgao';
-import FormularioOrgao from '../Orgao/FormularioOrgao';
-import NaoAutorizado from '../NaoAutorizado/NaoAutorizado';
-import Incluir from '../Incluir-Consignatario/Incluir';
+import CadastrarOrgao from '../Organization/List/OrganizationList';
+import FormularioOrgao from '../Organization/Organization';
+import NaoAutorizado from '../../cross-cutting/NaoAutorizado/NaoAutorizado';
+import Incluir from '../Document/Cossignatario/Incluir';
 
 function App() { 
   return (
@@ -33,10 +32,9 @@ function App() {
           <Route path="/formulario-usuario" element={<FormularioUsuario />} ></Route>
           <Route path="/formulario-usuario/:id" element={<FormularioUsuario />} ></Route>
           <Route path="/login" element={<Login />} ></Route>
-          <Route path="/visualizar-documento" element={<VisualizarDoc />} ></Route>
+          <Route path="/visualizar-documento" element={<Visualizar />} ></Route>
           <Route path="/listarusuario" element={<TabelaUsuario />} ></Route>
-          <Route path="/visualizar-documento-completo" element={<VisualizarDocCompleto />} ></Route>
-          <Route path="/visualizar-documento/:codigo" element={<VisualizarDoc />} ></Route>
+          <Route path="/visualizar-documento/:codigo" element={<Visualizar />} ></Route>
           <Route path="/listar-usuario" element={<UsuarioHome />} ></Route>
           <Route path="/FormularioSetor" element={<FormularioSetor />} ></Route>
           <Route path="/FormularioSetor/:id" element={<FormularioSetor />} ></Route>

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './component/App/App';
-import Header from './component/Header/Header';
+import Header from './component/App/Header/Header';
 import { BrowserRouter } from 'react-router-dom';
-import SubHeader from './component/SubHeader/SubHeader';
+import SubHeader from './component/App/Header/SubHeader/SubHeader';
 
 
 

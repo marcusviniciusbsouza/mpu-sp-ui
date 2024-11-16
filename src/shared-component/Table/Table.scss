@@ -23,21 +23,32 @@ table.TableDynamics {
 
   tbody {
     tr {
-      &:hover {
-        background-color: rgba(#000, .05);
+      &:nth-child(odd) {
+        background-color: #fff; /* Cor de fundo para linhas ímpares (brancas) */
       }
+
+      &:nth-child(even) {
+        background-color: #f5f5f5; /* Cor de fundo para linhas pares (cinza claro) */
+      }
+
+      &:hover {
+        background-color: rgba(#000, .05); /* Efeito de hover */
+      }
+
       td {
         padding: 7px 10px;
         color: #222;
-        border: 1px solid rgba(#000, 0.2); /* Adiciona borda às células do corpo */
-
+        border: 1px solid rgba(#000, 0.2); /* Borda das células */
+        
         &.right {
           text-align: right;
         }
       }
     }
   }
+  .actions {
+    > *:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
 }
-
-  
-

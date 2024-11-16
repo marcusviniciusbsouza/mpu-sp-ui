@@ -14,9 +14,9 @@ code {
 }
 
 :root {
-  --cor-padrao: #0277bd;
+  --cor-padrao: #01579b ;
+  --sub-cor-padrao:#bdbdbd ;
   --sub-cor-padrao-secundary: #262626;
-  --sub-cor-padrao:#cfd8dc;
   --sub-cor-padrao-button: #6c757d;
 }
 

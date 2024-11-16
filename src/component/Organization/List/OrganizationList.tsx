@@ -2,7 +2,7 @@ import './OrganizationList.scss'
 import React, { useEffect, useState } from 'react';
 import Conteudo from '../../../shared-component/Conteudo/Conteudo';
 import InputGroup from '../../../shared-component/InputGroup/InputGroup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../../shared-component/Button/Button';
 import { list, search } from './../Service/Service'; 
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import Table, { TableDynamicsHeader } from '../../../shared-component/Table/Tabl
 import Pagination from '../../../shared-component/Pagination/Pagination';
 import { useQueryParam } from '../../../utils/query-param';
 import { PageSize } from '../../../utils/page-size';
-import { formattedData } from '../OrgaoModel';
+import { formattedData, Organization } from '../OrgaoModel';
 import { useData } from '../../../utils/useData';
  
 const headers: TableDynamicsHeader[] = [
@@ -26,7 +26,8 @@ export class OrgaoSearch {
     email?: string
 }
 
-function CadastrarOrgao() {
+function OrganizationList() {
+    const navigate = useNavigate();
     const { page, pageForFilter } = useQueryParam('page');
     const { data, setListData } = useData(PageSize.Organization);
     const [ search, setSearch ] = useState([])
@@ -42,6 +43,11 @@ function CadastrarOrgao() {
             }
         }
     }
+
+    const handleRedirectForPageEdit = (row: any) => {
+        const orgaoId = row.$original?.orgaoId;
+        navigate(`/orgao/${orgaoId}`);
+    };
 
     useEffect(() => {
         fetchData()
@@ -63,10 +69,14 @@ function CadastrarOrgao() {
         <Table 
             data={data.list}
             header={headers}
+            enableActions
+            onActive={console.log}
+            onDelete={console.log}
+            onEdit={handleRedirectForPageEdit}
         />
         <Pagination size={data.size} totalElements={data.totalElements} />
 
     </Conteudo>
 }
 
-export default CadastrarOrgao
+export default OrganizationList

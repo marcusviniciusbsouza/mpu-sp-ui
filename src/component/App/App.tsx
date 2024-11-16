@@ -18,30 +18,33 @@ import OrganizationList from '../Organization/List/OrganizationList';
 import FormularioOrgao from '../Organization/Organization';
 import NaoAutorizado from '../../cross-cutting/NaoAutorizado/NaoAutorizado';
 import Incluir from '../Document/Cossignatario/Incluir';
+import Organization from '../Organization/Organization';
 
 function App() { 
   return (
     <div className="App">
         <Routes>
-          <Route path="/" element={<VirtualTable />} ></Route>
-          <Route path="/mesa-virtual" element={<VirtualTable />} ></Route>
-          <Route path="/documento/:sigla" element={<Document />} ></Route> 
-          <Route path="/documento" element={<Document />} ></Route> 
-          <Route path="/formulario-usuario" element={<User />} ></Route>
-          <Route path="/formulario-usuario/:id" element={<User />} ></Route>
-          <Route path="/login" element={<Login />} ></Route>
-          <Route path="/visualizar-documento" element={<View />} ></Route>
-          <Route path="/visualizar-documento/:codigo" element={<View />} ></Route>
-          <Route path="/listarusuario" element={<UserList />} ></Route>
-          <Route path="/listar-usuario" element={<UsuarioHome />} ></Route>
-          <Route path="*" element={<PaginaNaoEncontrada/>} ></Route>
-          <Route path="/Tramitar-documento" element={<Process />} ></Route>
-          <Route path="/cadastro-departamento" element={<Department />} ></Route>
-          <Route path="/cadastro-departamento/:id" element={<Department />} ></Route>
-          <Route path='/permissoes-usuario' element={<PermissoesUsuario />}></Route>
-          <Route path="/home-orgao" element={<OrganizationList />} ></Route>
-          <Route path='/nao-autorizado' element={<NaoAutorizado />}></Route>
-          <Route path='/Incluir-Consignatario' element={<Incluir />}></Route>
+          <Route path="/" element={<VirtualTable />} />
+          <Route path="/mesa-virtual" element={<VirtualTable />} />
+          <Route path="/documento/:sigla" element={<Document />} /> 
+          <Route path="/documento" element={<Document />} /> 
+          <Route path="/formulario-usuario" element={<User />} />
+          <Route path="/formulario-usuario/:id" element={<User />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/visualizar-documento" element={<View />} />
+          <Route path="/visualizar-documento/:codigo" element={<View />} />
+          <Route path="/listarusuario" element={<UserList />} />
+          <Route path="/listar-usuario" element={<UsuarioHome />} />
+          <Route path="*" element={<PaginaNaoEncontrada/>} />
+          <Route path="/Tramitar-documento" element={<Process />} />
+          <Route path="/cadastro-departamento" element={<Department />} />
+          <Route path="/cadastro-departamento/:id" element={<Department />} />
+          <Route path='/permissoes-usuario' element={<PermissoesUsuario />} />
+          <Route path="/orgao/:id" element={<Organization />} />
+          <Route path="/orgao/:id" element={<Organization />} /> 
+          <Route path="/home-orgao" element={<OrganizationList />} />
+          <Route path='/nao-autorizado' element={<NaoAutorizado />} />
+          <Route path='/Incluir-Consignatario' element={<Incluir />} />
         </Routes>
     </div>
     

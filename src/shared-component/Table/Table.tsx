@@ -1,6 +1,9 @@
 import React from "react";
 import './Table.scss'
 import organizeData from "../../utils/organizeDataForTable";
+import Button from "../Button/Button";
+import { Link } from "react-router-dom";
+import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 
 export interface TableDynamicsHeader {
     key: string
@@ -13,8 +16,8 @@ declare interface TableProps {
     data: any[]
     enableActions?: boolean
     onDelete?: (item : any) => void
-    onDetail?: (item : any) => void
     onEdit?: (item : any) => void
+    onActive?: (item : any) => void
 }
 
 const Table: React.FC<TableProps> = (props) => {
@@ -28,6 +31,10 @@ const Table: React.FC<TableProps> = (props) => {
                 <th key={ header.key } className={header.rigth ? 'right' : ''}>
                     { header.value}
                 </th>)
+        }
+        {
+          props.enableActions
+            && <th className="right">Actions</th>
         }
       </tr>
     </thead>
@@ -48,6 +55,36 @@ const Table: React.FC<TableProps> = (props) => {
                       </td>
                     : null
                 )
+            }
+            {
+              props.enableActions
+                && <td className="actions right">
+                  <div style={{ display: 'flex', maxWidth: '200px' }}>
+                    {
+                      props.onEdit &&
+                      <Button 
+                        onClick={() => props.onEdit && props.onEdit(row)} 
+                        icon={ <BorderColorRoundedIcon /> } 
+                      />
+                    }
+                    {
+                      props.onActive &&
+                        <Button
+                          onClick={() => props.onActive && props.onActive(row)}
+                        >
+                          Detail
+                        </Button>
+                    }
+                    {
+                      props.onDelete &&
+                        <Button
+                          onClick={() => props.onDelete && props.onDelete(row)}
+                        >
+                          Delete
+                        </Button>
+                    }
+                  </div>
+                </td>
             }
           </tr>
         })

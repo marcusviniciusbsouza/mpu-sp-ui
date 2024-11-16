@@ -1,0 +1,43 @@
+table.TableDynamics {
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(#000, .1);
+  border-collapse: collapse; /* Garante que as bordas fiquem unificadas */
+
+  thead {
+    background-color: var(--sub-cor-padrao-secundary);
+    tr th {
+      color: rgba(#fff, .8);
+      text-align: left;
+      padding: 7px 10px;
+      font-size: .8em;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: .75px;
+      border: 1px solid rgba(#000, 0.2); /* Adiciona borda às células do cabeçalho */
+
+      &.right {
+        text-align: right;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background-color: rgba(#000, .05);
+      }
+      td {
+        padding: 7px 10px;
+        color: #222;
+        border: 1px solid rgba(#000, 0.2); /* Adiciona borda às células do corpo */
+
+        &.right {
+          text-align: right;
+        }
+      }
+    }
+  }
+}
+
+  
+

@@ -4,9 +4,21 @@ import Conteudo from '../../../shared-component/Conteudo/Conteudo';
 import InputGroup from '../../../shared-component/InputGroup/InputGroup';
 import { Link } from 'react-router-dom';
 import Button from '../../../shared-component/Button/Button';
-import { listarOrgaos, buscarOrgaos } from './Servico/Servico'; 
+import { list, search } from './../Service/Service'; 
 import Swal from 'sweetalert2';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import Table, { TableDynamicsHeader } from '../../../shared-component/Table/Table';
+import Pagination from '../../../shared-component/Pagination/Pagination';
+import { useQueryParam } from '../../../utils/query-param';
+import { PageSize } from '../../../utils/page-size';
+import { formattedData } from '../OrgaoModel';
+import { useData } from '../../../utils/useData';
+ 
+const headers: TableDynamicsHeader[] = [
+    { key: 'nome', value: 'Nome' },
+    { key: 'estado_nome', value: 'Estado' },
+    { key: 'cidade_nome', value: 'Cidade' }
+]
 
 export class OrgaoSearch {
     id?: string
@@ -15,81 +27,46 @@ export class OrgaoSearch {
 }
 
 function CadastrarOrgao() {
+    const { page, pageForFilter } = useQueryParam('page');
+    const { data, setListData } = useData(PageSize.Organization);
+    const [ search, setSearch ] = useState([])
 
-    const [ cadastrados, setCadastros ] = useState([])
-    const [ cadastro, setCadastro ] = useState('')
-    
-    
     async function fetchData() {
-        try{  
-        const _cadastros = await listarOrgaos()
-        setCadastros(_cadastros)
-    } catch(err) {
-        if (err instanceof Error) 
-        Swal.fire('Oops!', 'Erro ao se conectar com o servidor!', 'error')
-}
-    }
-
-    async function buscar() {
-        try{
-        const _dacstr = await buscarOrgaos (cadastro)
-        setCadastros(_dacstr)
-    } catch(err){
-        if (err instanceof Error) 
-        Swal.fire('Oops!', 'Erro ao se conectar com o servidor!', 'error')
-}
+        try {
+            const _data = await list('', pageForFilter, data.size);
+            const listNew = formattedData(_data.content);
+            setListData(listNew, _data.totalElements);
+        } catch (err) {
+            if (err instanceof Error) {
+                Swal.fire('Oops!', 'Erro ao se conectar com o servidor!', 'error');
+            }
+        }
     }
 
     useEffect(() => {
         fetchData()
         // eslint-disable-next-line
-    }, [])
+    }, [page, data.size])
 
     return <Conteudo >
-    <div className='HeaderUsuario'>
-
-        <h2>Lista de Órgãos <AccountBalanceIcon /></h2>
-
-        <div className='left'>
-            <InputGroup onChange={ (e) => setCadastro(e.target.value) } onClick={ buscar } placeholder='pesquisar órgãos...'></InputGroup>
+        <div className='HeaderUsuario'>
+            <h2>Lista de Órgãos <AccountBalanceIcon /></h2>
+            <div className='left'>
+                <InputGroup 
+                    
+                    onClick={ fetchData } placeholder='pesquisar órgãos...' />
+            </div>
+            <Link className='BtnCriarDocumento AppCriarDocumento right' to="/FormularioOrgao"><Button value='Novo Órgão' color='create'></Button></Link>
+            <div className="clear"></div>
         </div>
-
-        <Link className='BtnCriarDocumento AppCriarDocumento right' to="/FormularioOrgao"><Button value='Novo Órgão' color='create'></Button></Link>
-
-        <div className="clear"></div>
-
-    </div>
-    <table className="AppTabelaUsuario">
-        <thead>
-            <tr>
-                <th>Nome</th>
-            </tr>
-        </thead>
-            <tbody>
-
-            {
-
-            cadastrados.map(( listValue:any, index:any ) => {
-                    return (
-                        <tr key={index}>
-                            <td>{ listValue.nome }</td>
-                        </tr>
-                    );
-                })
-
-            }
-
-            </tbody>
-
-        </table>
+    
+        <Table 
+            data={data.list}
+            header={headers}
+        />
+        <Pagination size={data.size} totalElements={data.totalElements} />
 
     </Conteudo>
-
-
-
-
-
-
 }
 
 export default CadastrarOrgao

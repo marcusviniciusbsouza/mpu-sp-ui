@@ -7,16 +7,16 @@ import Button from "../../shared-component/Button/Button";
 import './Organization.css'
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import { cadastrarOrgao } from "./Servico/orgao.service";
+import { registry } from "./Service/Service";
 
-export class Setor {
+export class OrganizationModel {
     orgao?: string
     nome?: string
 }
 
 function Organization() {
 
-    const setor = new Setor()
+    const org = new OrganizationModel()
     const [ orgao] = useState('');
     const [ nome, setNome ] = useState('');
 
@@ -28,16 +28,15 @@ function Organization() {
             return;
         }
 
-        setor.orgao = orgao
-        setor.nome = nome
-      
+        org.orgao = orgao
+        org.nome = nome
 
         try {
-           cadastrarOrgao(setor)
+            registry(org)
             Swal.fire('Setor', `O Órgão ${ orgao } foi cadastrado com sucesso`, 'success')
         } catch(err) {
             if (err instanceof Error) 
-              Swal.fire('Oops!', err.message, 'error')
+                Swal.fire('Oops!', err.message, 'error')
         }
 
     }
@@ -75,10 +74,8 @@ function Organization() {
                     </Grid>
                 </Grid>
             </div>
-
         </Form>
     </Conteudo>
-
 }
 
 export default Organization

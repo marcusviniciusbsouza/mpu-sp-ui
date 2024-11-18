@@ -14,7 +14,6 @@ import { PageSize } from '../../../utils/page-size';
 import { formattedData } from '../OrgaoModel';
 import { useData } from '../../../utils/useData';
 import { Active } from '../../../utils/active-object';
-import { Dialog, DialogTitle, LinearProgress } from '@mui/material';
  
 const headers: TableDynamicsHeader[] = [
     { key: 'nome', value: 'Nome' },
@@ -32,14 +31,11 @@ function OrganizationList() {
     const navigate = useNavigate();
     const { page, pageForFilter } = useQueryParam('page');
     const { data, setListData } = useData(PageSize.Organization);
-    const [ search, setSearch ] = useState(true)
-
-    /**Modal */
-    const [open, setOpen] = React.useState(false);
+    const [ search, setSearch ] = useState('')
 
     async function fetchData() {
         try {
-            const _data = await list('', pageForFilter, data.size);
+            const _data = await list(search, pageForFilter, data.size);
             const listNew = formattedData(_data.content);
             setListData(listNew, _data.totalElements);
         } catch (err) {
@@ -79,7 +75,10 @@ function OrganizationList() {
         <div className='HeaderUsuario'>
             <h2>Lista de Órgãos <AccountBalanceIcon /></h2>
             <div className='left'>
-                <InputGroup onClick={ fetchData } placeholder='pesquisar órgãos...' />
+                <InputGroup 
+                    onChange={ (e) => setSearch(e.target.value) }
+                    onClickButton={ fetchData } 
+                    placeholder='Buscar...' />
             </div>
             <Link className='BtnCriarDocumento AppCriarDocumento right' to="/FormularioOrgao"><Button value='Novo Órgão' color='create'></Button></Link>
             <div className="clear"></div>

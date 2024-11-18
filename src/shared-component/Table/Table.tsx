@@ -59,7 +59,7 @@ const Table: React.FC<TableProps> = (props) => {
             }
             {
               props.enableActions
-                && <td className="actions right">
+                && <td className="actions right" >
                   <div style={{ display: 'flex', maxWidth: '200px' }}>
                     {
                       props.onEdit &&

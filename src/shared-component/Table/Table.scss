@@ -1,7 +1,10 @@
 table.TableDynamics {
   width: 100%;
   box-shadow: 0 3px 6px rgba(#000, .1);
-  border-collapse: collapse; /* Garante que as bordas fiquem unificadas */
+  border-collapse: separate;
+  border-spacing: 0 1px; 
+  color: black;
+  table-layout: auto;
 
   thead {
     background-color: var(--sub-cor-padrao-secundary);
@@ -13,7 +16,6 @@ table.TableDynamics {
       font-weight: 400;
       text-transform: uppercase;
       letter-spacing: .75px;
-      border: 1px solid rgba(#000, 0.2); /* Adiciona borda às células do cabeçalho */
 
       &.right {
         text-align: right;
@@ -24,21 +26,20 @@ table.TableDynamics {
   tbody {
     tr {
       &:nth-child(odd) {
-        background-color: #fff; /* Cor de fundo para linhas ímpares (brancas) */
+        background-color: #fff;
       }
 
       &:nth-child(even) {
-        background-color: #f5f5f5; /* Cor de fundo para linhas pares (cinza claro) */
+        background-color: #f5f5f5;
       }
 
       &:hover {
-        background-color: rgba(#000, .05); /* Efeito de hover */
+        background-color: rgba(#000, .05);
       }
 
       td {
         padding: 7px 10px;
         color: #222;
-        border: 1px solid rgba(#000, 0.2); /* Borda das células */
         
         &.right {
           text-align: right;
@@ -46,6 +47,7 @@ table.TableDynamics {
       }
     }
   }
+
   .actions {
     > *:not(:last-child) {
       margin-right: 5px;

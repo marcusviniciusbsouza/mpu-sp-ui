@@ -1,44 +1,59 @@
 .TPagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 7px;
-  
-    a {
+  display: flex;
+  justify-content: center;
+  margin-top: 7px;
+
+  a {
       width: 30px;
       height: 30px;
-  
       background-color: #fff;
       border: 1px solid #ccc;
-  
       color: #09f;
-  
-      border-radius: 1px;
-  
+      border-radius: 4px; /* Bordas mais arredondadas para um estilo de botão */
       display: flex;
       justify-content: center;
       align-items: center;
-  
       text-decoration: none;
-      font-size: 12px;
-  
-      &:not(:last-child) {
-        margin-right: 5px;
-      }
-  
-      transition: .25s ease;
+      font-size: 14px; /* Ajustado para um tamanho de texto mais visível */
+      font-weight: bold; /* Tamanho mais destacado do texto */
+      transition: all 0.3s ease; /* Transição mais suave para todos os efeitos */
+      
+      /* Efeito de hover para dar um feedback visual */
       &:hover {
-        background-color: #09f;
-        color: #fff;
-        border-color: #09f;
-        box-shadow: 0 3px 6px rgba(#000, .2);
-        transform: translateY(-3px);
+          background-color: #09f;
+          color: #fff;
+          border-color: #09f;
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+          transform: translateY(-3px);
       }
-  
+
       &.selected {
-        color: #222;
-        opacity: 0.5;
-        cursor: default;
-        pointer-events: none;
+          background-color: #09f;
+          color: #fff;
+          pointer-events: none; /* Impede a interação com a página atual */
+          cursor: default;
+          opacity: 0.6; /* Opacidade reduzida para a página selecionada */
       }
-    }
+
+      &:not(:last-child) {
+          margin-right: 5px;
+      }
+
+      /* Efeito de foco para acessibilidade */
+      &:focus {
+          outline: 2px solid #09f;
+      }
   }
+
+  .page-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      &.disabled {
+          pointer-events: none;
+          color: #ccc;
+      }
+  }
+}

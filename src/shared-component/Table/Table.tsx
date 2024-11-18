@@ -2,8 +2,9 @@ import React from "react";
 import './Table.scss'
 import organizeData from "../../utils/organizeDataForTable";
 import Button from "../Button/Button";
-import { Link } from "react-router-dom";
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
+import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 export interface TableDynamicsHeader {
     key: string
@@ -48,7 +49,7 @@ const Table: React.FC<TableProps> = (props) => {
                 .map((item, i) =>
                   item !== '$original'
                     ? <td
-                        key={row.$original.id + i}
+                        key={row.$original.orgaoId + i}
                         className={indexHeaders[item].rigth ? 'right' : ''}
                       >
                         { row[item] }
@@ -68,12 +69,17 @@ const Table: React.FC<TableProps> = (props) => {
                       />
                     }
                     {
-                      props.onActive &&
+                      (props.onActive && row.$original.active) ?  
                         <Button
-                          onClick={() => props.onActive && props.onActive(row)}
-                        >
-                          Detail
-                        </Button>
+                            onClick={() => props.onActive && props.onActive(row)}
+                            icon={ <HttpsOutlinedIcon /> } 
+                        / >
+                      :
+                      <Button
+                            color={'danger'}
+                            onClick={() => props.onActive && props.onActive(row)}
+                            icon={ <LockOpenIcon /> } 
+                        / >
                     }
                     {
                       props.onDelete &&

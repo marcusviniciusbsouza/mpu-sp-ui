@@ -1,10 +1,11 @@
+import { Active } from "../../../utils/active-object";
 import http from "../../../utils/http-organization"; 
 import { OrganizationModel } from "../Organization";
 
 const baseURLOrganization = '/v1';
 
-export const registry = (usu: OrganizationModel) => {
-    http.post(`${baseURLOrganization}/registry`, usu)
+export const registry = (obj: OrganizationModel) => {
+    http.post(`${baseURLOrganization}/registry`, obj)
 } 
 
 export const list = (name?: string, page?: number, size?: number) => {
@@ -14,11 +15,16 @@ export const list = (name?: string, page?: number, size?: number) => {
 }
 
 export const search = (nome?:string) => {
-    console.log(nome)
     return http
         .get(`/buscar?Orgao=${nome}`)
         .then(response => response.data); 
 } 
+
+export const activeOrDesactivate = (id: String, activeOrDesactivate: Active) => {
+    return http
+        .patch(`${baseURLOrganization}/activate-deactivate/${id}`, activeOrDesactivate)
+        .then(response => response.data); 
+}
 
 export const buscarIdentificador = (id:string) => {
     return http

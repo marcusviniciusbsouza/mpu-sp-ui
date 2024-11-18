@@ -4,15 +4,17 @@ import Conteudo from '../../../shared-component/Conteudo/Conteudo';
 import InputGroup from '../../../shared-component/InputGroup/InputGroup';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../../shared-component/Button/Button';
-import { list, search } from './../Service/Service'; 
+import { list, activeOrDesactivate } from './../Service/Service'; 
 import Swal from 'sweetalert2';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Table, { TableDynamicsHeader } from '../../../shared-component/Table/Table';
 import Pagination from '../../../shared-component/Pagination/Pagination';
 import { useQueryParam } from '../../../utils/query-param';
 import { PageSize } from '../../../utils/page-size';
-import { formattedData, Organization } from '../OrgaoModel';
+import { formattedData } from '../OrgaoModel';
 import { useData } from '../../../utils/useData';
+import { Active } from '../../../utils/active-object';
+import { Dialog, DialogTitle, LinearProgress } from '@mui/material';
  
 const headers: TableDynamicsHeader[] = [
     { key: 'nome', value: 'Nome' },
@@ -30,7 +32,10 @@ function OrganizationList() {
     const navigate = useNavigate();
     const { page, pageForFilter } = useQueryParam('page');
     const { data, setListData } = useData(PageSize.Organization);
-    const [ search, setSearch ] = useState([])
+    const [ search, setSearch ] = useState(true)
+
+    /**Modal */
+    const [open, setOpen] = React.useState(false);
 
     async function fetchData() {
         try {
@@ -39,14 +44,30 @@ function OrganizationList() {
             setListData(listNew, _data.totalElements);
         } catch (err) {
             if (err instanceof Error) {
-                Swal.fire('Oops!', 'Erro ao se conectar com o servidor!', 'error');
+                Swal.fire('Erro!', 'Erro ao se conectar com o servidor!', 'error');
             }
         }
     }
 
     const handleRedirectForPageEdit = (row: any) => {
-        const orgaoId = row.$original?.orgaoId;
-        navigate(`/orgao/${orgaoId}`);
+        const id = row.$original?.orgaoId;
+        navigate(`/orgao/${id}`);
+    };
+
+    const handleActiveOrDeactivate = async (row: any) => {
+        const id = row.$original?.orgaoId;
+        const active = row.$original?.active;
+        const obj = new Active();
+        obj.active = !active;
+        try {
+            await activeOrDesactivate(id, obj);
+            fetchData();
+        } catch (error) {
+            console.error('Erro ao ativar/desativar:', error);
+            Swal.fire('Erro!', 'Erro ao ativar/desativar órgão!', 'error');
+        } finally {
+            
+        }
     };
 
     useEffect(() => {
@@ -58,24 +79,19 @@ function OrganizationList() {
         <div className='HeaderUsuario'>
             <h2>Lista de Órgãos <AccountBalanceIcon /></h2>
             <div className='left'>
-                <InputGroup 
-                    
-                    onClick={ fetchData } placeholder='pesquisar órgãos...' />
+                <InputGroup onClick={ fetchData } placeholder='pesquisar órgãos...' />
             </div>
             <Link className='BtnCriarDocumento AppCriarDocumento right' to="/FormularioOrgao"><Button value='Novo Órgão' color='create'></Button></Link>
             <div className="clear"></div>
         </div>
-    
         <Table 
             data={data.list}
             header={headers}
             enableActions
-            onActive={console.log}
-            onDelete={console.log}
+            onActive={handleActiveOrDeactivate}
             onEdit={handleRedirectForPageEdit}
         />
         <Pagination size={data.size} totalElements={data.totalElements} />
-
     </Conteudo>
 }
 

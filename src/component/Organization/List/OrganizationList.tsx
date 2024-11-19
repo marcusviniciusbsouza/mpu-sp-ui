@@ -16,9 +16,9 @@ import { useData } from '../../../utils/useData';
 import { Active } from '../../../utils/active-object';
  
 const headers: TableDynamicsHeader[] = [
-    { key: 'nome', value: 'Nome' },
-    { key: 'estado_nome', value: 'Estado' },
-    { key: 'cidade_nome', value: 'Cidade' }
+    { key: 'name', value: 'Nome' },
+    { key: 'state_name', value: 'Estado' },
+    { key: 'city_name', value: 'Cidade' }
 ]
 
 export class OrgaoSearch {

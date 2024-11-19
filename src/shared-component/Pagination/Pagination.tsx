@@ -27,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
                 className={`page-button ${page === 1 ? 'disabled' : ''}`}
                 aria-disabled={page === 1}
             >
-                &lt;&lt;
+                &lt;
             </NavLink>
 
             {/* Páginas visíveis */}
@@ -52,7 +52,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
                 className={`page-button ${page === totalPages ? 'disabled' : ''}`}
                 aria-disabled={page === totalPages}
             >
-                &gt;&gt;
+                &gt;
             </NavLink>
         </div>
     );

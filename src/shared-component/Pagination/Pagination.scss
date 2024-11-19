@@ -1,59 +1,75 @@
 .TPagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 7px;
-
-  a {
+    display: flex;
+    justify-content: center;
+    margin-top: 7px;
+  
+    a {
+      user-select: none;
       width: 30px;
       height: 30px;
-      background-color: #fff;
+      background-color: white; // Cor para elementos não selecionados
       border: 1px solid #ccc;
-      color: #09f;
-      border-radius: 4px; /* Bordas mais arredondadas para um estilo de botão */
+      color: #212121; // Cor do texto
+      border-radius: 4px;
       display: flex;
       justify-content: center;
       align-items: center;
       text-decoration: none;
-      font-size: 14px; /* Ajustado para um tamanho de texto mais visível */
-      font-weight: bold; /* Tamanho mais destacado do texto */
-      transition: all 0.3s ease; /* Transição mais suave para todos os efeitos */
-      
-      /* Efeito de hover para dar um feedback visual */
+      font-size: 14px;
+      font-weight: lighter;
+      transition: none; // Remove a transição ao passar o mouse
+  
       &:hover {
-          background-color: #09f;
-          color: #fff;
-          border-color: #09f;
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-          transform: translateY(-3px);
+        background-color: #fafafa; // Cor para hover
+        color: #212121;
+        border-color: #d4d4d4; // Borda leve para hover
+        box-shadow: none; // Remove sombra
+        transform: none; // Remove elevação
       }
-
+  
       &.selected {
-          background-color: #09f;
-          color: #fff;
-          pointer-events: none; /* Impede a interação com a página atual */
-          cursor: default;
-          opacity: 0.6; /* Opacidade reduzida para a página selecionada */
+        background-color: #eeeeee; // Fundo do elemento selecionado
+        color: #212121; // Cor consistente para texto
+        pointer-events: none; // Desativa interações
+        cursor: default;
+        opacity: 1; // Mantém visibilidade total
       }
-
+  
       &:not(:last-child) {
-          margin-right: 5px;
+        margin-right: 5px;
       }
-
-      /* Efeito de foco para acessibilidade */
+  
       &:focus {
-          outline: 2px solid #09f;
+        outline: 2px solid #ccc; // Estilo básico para acessibilidade
       }
-  }
-
-  .page-button {
+    }
+  
+    .page-button {
       display: inline-flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-
-      &.disabled {
-          pointer-events: none;
-          color: #ccc;
+      user-select: none;
+      background-color: #fafafa; // Fundo padrão
+      color: #212121;
+      transition: none;
+  
+      &:hover {
+        background-color: #f5f5f5; // Fundo para hover
       }
+  
+      &.selected {
+        background-color: #f5f5f5; // Fundo para botão selecionado
+        color: #212121; // Cor do texto para botão selecionado
+        pointer-events: none; // Desativa interações
+        cursor: default;
+      }
+  
+      &.disabled {
+        pointer-events: none;
+        color: #f5f5f5; // Cor para estado desabilitado
+        background-color: #e0e0e0; // Fundo para estado desabilitado
+      }
+    }
   }
-}
+  

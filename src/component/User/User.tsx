@@ -89,7 +89,7 @@ function User() {
     return <Conteudo >
         
         <Form 
-            titulo={!id? "Cadastro de Usuário" : "Edição de Usuário"}
+            title={!id? "Cadastro de Usuário" : "Edição de Usuário"}
             onSubmit={ enviarFormulario } 
         >   
             <Grid item xs={12}>

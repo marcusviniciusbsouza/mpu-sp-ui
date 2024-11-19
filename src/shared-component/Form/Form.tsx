@@ -2,7 +2,7 @@ import React from "react";
 import './Form.scss'
 
 declare interface FormProps {
-    titulo?: string
+    title?: string
     onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
     children: JSX.Element | JSX.Element[]
 }
@@ -16,8 +16,8 @@ const Form: React.FC<FormProps> = (props) => {
 
     return <form className="AppForm" onSubmit={preventSubmit}>
             {
-                props.titulo && <div className="Titulo">
-                    { props.titulo }
+                props.title && <div className="Title">
+                    { props.title }
                 </div>
             }
             { props.children }

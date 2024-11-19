@@ -83,7 +83,7 @@ const ModalIncluir: React.FC<ModProps> = ({ open, handleClose, setMatricula, set
     <Modal open={open} onClose={handleClose}>
       <Box className="modal-box">
         <Conteudo>
-          <Form titulo={"Dados do Usuário"}>
+          <Form title={"Dados do Usuário"}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Input

@@ -74,7 +74,7 @@ function Department() {
     return <Conteudo >
         
         <Form 
-            titulo={!id ? "Cadastro de Setor" : "Edição de Setor"}
+            title={!id ? "Cadastro de Setor" : "Edição de Setor"}
             onSubmit={ enviarFormulario } 
         >
             <Grid container spacing={2}>

@@ -1,0 +1,26 @@
+
+
+.AppAutocomplete input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    height: 33.60px;
+    color: #222;
+}
+
+.AppAutocomplete label span {
+    text-transform: uppercase;
+    color: var(--font);
+    font-size: 12px;
+    height: 15px;
+    letter-spacing: .75px;
+}
+  
+.AppAutocomplete input:focus {
+    border-color: #09f;
+    outline: none;
+}
+  
+.AppAutocomplete input::placeholder {
+    color: #ccc;
+}

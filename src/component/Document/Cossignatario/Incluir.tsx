@@ -76,7 +76,7 @@ function Incluir() {
   return (
     <Conteudo>
       <Form
-        titulo={"Inclusão de Cossignatário"}
+        title={"Inclusão de Cossignatário"}
         onSubmit={(e)=>e.preventDefault()}
       >
         <Grid container spacing={2}>

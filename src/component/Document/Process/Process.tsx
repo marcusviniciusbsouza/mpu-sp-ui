@@ -105,7 +105,7 @@ function TramitarDoc() {
 
   return (
     <Conteudo>
-      <Form titulo={'Tramitar Documento'}>
+      <Form title={'Tramitar Documento'}>
         <Grid item xs={7.8}>
           <p>Escolha para quem será tramitado esse documento</p>
         </Grid>

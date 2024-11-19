@@ -1,53 +1,33 @@
 .AppInput {
     height: 45px;
-    margin-top: 19px;
-    margin-right: 13px;
-}
-
-.AppInput label {
+  }
+  
+  .AppInput label {
     display: flex;
     flex-direction: column;
-}
-
-.AppInput span {
+  }
+  
+  .AppInput label span {
     text-transform: uppercase;
-    color: #222;
-    font-size: .8em;
+    color: var(--font);
+    font-size: 12px;
     height: 15px;
     letter-spacing: .75px;
-    margin-bottom: 10px;
-}
-
-.AppInput input {
+  }
+  
+  .AppInput label input {
     border: none;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     border-radius: 0;
     height: 30px;
     color: #222;
-    padding-left: 8px;
-}
-
-.AppInput input:focus {
-    border-color: #222;
+  }
+  
+  .AppInput label input:focus {
+    border-color: #09f;
     outline: none;
-}
-
-.AppInput label input::placeholder { 
+  }
+  
+  .AppInput label input::placeholder {
     color: #ccc;
-}
-
-.error {
-    width: 100%;
-    padding: 2px;
-    background-color: #ff5252;
-    color: white;
-    font-size: 13px;
-}
-
-@media(max-width:840px){
-
-    label {
-        font-size: 12px;
-    }
-
-}
+  }

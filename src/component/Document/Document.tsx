@@ -116,7 +116,7 @@ function Document() {
 
   return (
     <Conteudo>
-      <Form titulo={!sigla ? 'Criar documento' : 'Editar documento'}>
+      <Form title={!sigla ? 'Criar documento' : 'Editar documento'}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
             <Autocomplete

@@ -22,7 +22,7 @@ export const search = (nome?:string) => {
 
 export const activeOrDesactivate = (id: String, activeOrDesactivate: Active) => {
     return http
-        .patch(`${baseURLOrganization}/activate-deactivate/${id}`, activeOrDesactivate)
+        .patch(`${baseURLOrganization}/activate-desactivate/${id}`, activeOrDesactivate)
         .then(response => response.data); 
 }
 

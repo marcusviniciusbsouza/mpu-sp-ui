@@ -46,12 +46,12 @@ function OrganizationList() {
     }
 
     const handleRedirectForPageEdit = (row: any) => {
-        const id = row.$original?.orgaoId;
+        const id = row.$original?.id;
         navigate(`/orgao/${id}`);
     };
 
     const handleActiveOrDeactivate = async (row: any) => {
-        const id = row.$original?.orgaoId;
+        const id = row.$original?.id;
         const active = row.$original?.active;
         const obj = new Active();
         obj.active = !active;

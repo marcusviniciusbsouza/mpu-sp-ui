@@ -22,8 +22,7 @@ const Button: React.FC<ButtonProps> = (props) => {
                         ${props.color === undefined ? 'AppButtonPrimary' : ''}`}
             onClick={props.onClick}
         >
-            {props.children || 'Nameless button'}
-            {props.appendIcon}
+            {props.children || props.appendIcon || 'Nameless button'}
         </button>
     );
 

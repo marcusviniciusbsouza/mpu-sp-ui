@@ -80,7 +80,7 @@ function OrganizationList() {
                     onClickButton={ fetchData } 
                     placeholder='Buscar...' />
             </div>
-            <Link className='BtnCriarDocumento AppCriarDocumento right' to="/FormularioOrgao"><Button value='Novo Órgão' color='create'></Button></Link>
+            <Link className='right' to="/orgao"><Button value='Novo Órgão'>Novo Órgão</Button></Link>
             <div className="clear"></div>
         </div>
         <Table 

@@ -1,66 +1,91 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Autocomplete.css';
 
-interface AutocompleteProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
-    options: string[];
-    onOptionSelect?: (value: string) => void;
+interface Option {
+  id: number;
+  nome: string;
 }
 
-const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSelect, ...props }) => {
-    const [value, setValue] = useState<string>('');
-    const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
-    const [isOptionsVisible, setIsOptionsVisible] = useState<boolean>(false);
+interface AutocompleteProps {
+  label: string;
+  options: Option[];
+  onOptionSelect: (option: Option) => void;
+}
 
-    useEffect(() => {
-        if (value) {
-            const filtered = options.filter(option => 
-                option.toLowerCase().includes(value.toLowerCase())
-            );
-            setFilteredOptions(filtered);
-            setIsOptionsVisible(filtered.length > 0);
-        } else {
-            setFilteredOptions([]);
-            setIsOptionsVisible(false);
-        }
-    }, [value, options]);
+const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSelect }) => {
+  const [inputValue, setInputValue] = useState('');
+  const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
-    };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
 
-    const handleOptionClick = (option: string) => {
-        setValue(option);
-        setIsOptionsVisible(false);
-        if (onOptionSelect) { 
-            onOptionSelect(option);
-        }
-    };
-
-    return (
-        <div className='AppAutocomplete'>
-            {label && (
-                <label>
-                    <span>{label}</span>
-                    <input
-                        {...props}
-                        value={value}
-                        onChange={handleChange}
-                        onFocus={() => setIsOptionsVisible(true)}
-                    />
-                </label>
-            )}
-            {isOptionsVisible && (
-                <ul className='options-list'>
-                    {filteredOptions.map((option, index) => (
-                        <li key={index} onClick={() => handleOptionClick(option)}>
-                            {option}
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
+    setFilteredOptions(
+      options.filter((option) =>
+        option.nome.toLowerCase().includes(value.toLowerCase())
+      )
     );
+
+    setIsDropdownVisible(value !== '');
+  };
+
+  const handleOptionClick = (option: Option) => {
+    setInputValue(option.nome);
+    setIsDropdownVisible(false);
+    onOptionSelect(option);
+  };
+
+  const handleInputFocus = () => {
+    if (inputValue !== '') {
+      setIsDropdownVisible(true); 
+    }
+  };
+
+  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const relatedTarget = e.relatedTarget as HTMLElement;
+
+    // Verifica se o clique foi em uma opção da lista
+    if (relatedTarget && relatedTarget.tagName === 'LI') {
+      return; // Não fecha o dropdown
+    }
+
+    // Fecha o dropdown ao perder o foco fora da lista
+    setIsDropdownVisible(false);
+  };
+
+  return (
+    <div className="AppAutocomplete">
+      <label>
+        <span>{label}</span>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          placeholder="Digite para buscar..."
+        />
+      </label>
+      {isDropdownVisible && (
+        <ul className="options-list" tabIndex={-1}>
+          {filteredOptions.length > 0 ? (
+            filteredOptions.map((option) => (
+              <li
+                key={option.id}
+                onClick={() => handleOptionClick(option)}
+                tabIndex={0}
+              >
+                {option.nome}
+              </li>
+            ))
+          ) : (
+            <li>Nenhuma opção encontrada</li>
+          )}
+        </ul>
+      )}
+    </div>
+  );
 };
 
 export default Autocomplete;

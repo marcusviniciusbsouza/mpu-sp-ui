@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import Grid from "../Grid/Grid";
 
 export interface TableDynamicsHeader {
     key: string
@@ -60,36 +61,22 @@ const Table: React.FC<TableProps> = (props) => {
             {
               props.enableActions
                 && <td className="actions right" >
-                  <div style={{ display: 'flex', maxWidth: '200px' }}>
+                  <Grid columns={2} gap="5px">
                     {
                       props.onEdit &&
                       <Button 
                         onClick={() => props.onEdit && props.onEdit(row)} 
-                        icon={ <BorderColorRoundedIcon /> } 
+                        appendIcon={ <BorderColorRoundedIcon /> } 
                       />
                     }
-                    {
-                      (props.onActive && row.$original.active) ?  
-                        <Button
-                            onClick={() => props.onActive && props.onActive(row)}
-                            icon={ <HttpsOutlinedIcon /> } 
-                        / >
-                      :
+                    {  
                       <Button
-                            color={'danger'}
-                            onClick={() => props.onActive && props.onActive(row)}
-                            icon={ <LockOpenIcon /> } 
-                        / >
+                          onClick={() => props.onActive && props.onActive(row)}
+                          color={props.onActive && row.$original.active ? undefined : 'danger'}
+                          appendIcon={props.onActive && row.$original.active ? <HttpsOutlinedIcon /> : <LockOpenIcon />}
+                      />
                     }
-                    {
-                      props.onDelete &&
-                        <Button
-                          onClick={() => props.onDelete && props.onDelete(row)}
-                        >
-                          Delete
-                        </Button>
-                    }
-                  </div>
+                  </Grid>
                 </td>
             }
           </tr>

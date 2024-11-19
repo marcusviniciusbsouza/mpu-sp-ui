@@ -40,7 +40,7 @@ function App() {
           <Route path="/cadastro-departamento" element={<Department />} />
           <Route path="/cadastro-departamento/:id" element={<Department />} />
           <Route path='/permissoes-usuario' element={<PermissoesUsuario />} />
-          <Route path="/orgao/:id" element={<Organization />} />
+          <Route path="/orgao" element={<Organization />} />
           <Route path="/orgao/:id" element={<Organization />} /> 
           <Route path="/home-orgao" element={<OrganizationList />} />
           <Route path='/nao-autorizado' element={<NaoAutorizado />} />

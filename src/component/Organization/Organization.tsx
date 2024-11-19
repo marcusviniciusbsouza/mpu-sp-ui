@@ -17,13 +17,21 @@ export class OrganizationModel {
 
 function Organization() {
     const navigate = useNavigate();
-    const options = ['Apple', 'Banana', 'Cherry', 'Date', 'Fig', 'Grape'];
+
+    const options = [
+        { 'id': 1, 'nome': 'Manaus' }, 
+        { 'id': 2, 'nome': 'Fortaleza' }, 
+        { 'id': 3, 'nome': 'Florianopolis' }, 
+        { 'id': 4, 'nome': 'Belem' }, 
+        { 'id': 5, 'nome': 'Sao Paulo' }, 
+        { 'id': 6, 'nome': 'Rio de Janeiro' }];
+
     const org = new OrganizationModel()
     const [ orgao] = useState('');
     const [ nome, setNome ] = useState('');
 
-    const handleOptionSelect = (value: string) => {
-        console.log('Selected:', value);
+    const handleOptionSelect = (option: any) => {
+        console.log('Opção selecionada:', option.id);
     };
 
     const handleRedirectHome = () => {
@@ -56,12 +64,11 @@ function Organization() {
             title={"Cadastro de Órgão"}
             onSubmit={ enviarFormulario } >
             <Grid columns={2} gap="24px">
-                <Autocomplete 
-                    label="Cidades" 
-                    options={options} 
-                    onOptionSelect={handleOptionSelect} // Alterado para onOptionSelect
-                />
-                <Input label="Nome" />
+                <Autocomplete
+                label="Cidade"
+                options={options}
+                onOptionSelect={handleOptionSelect} />
+            <Input label="Nome" />
             </Grid>
             <div className="MaxSizeButton">
                 <Grid columns={2} gap="5px">

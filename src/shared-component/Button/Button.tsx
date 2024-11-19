@@ -6,7 +6,7 @@ declare interface ButtonProps extends React.InputHTMLAttributes<HTMLInputElement
     className?:string
     onClick?: () => void
     value?: string
-    appnedIcon?: any
+    appendIcon?: any
     color?: any
     children?: React.ReactNode;
     icon?: any;
@@ -14,63 +14,18 @@ declare interface ButtonProps extends React.InputHTMLAttributes<HTMLInputElement
 
 const Button: React.FC<ButtonProps> = (props) => {
 
-    if(props.color === 'primary') {
-        return <button 
-                className=" AppButton  AppButtonPrimary"
-                onClick={ props.onClick }
-                style={{ marginRight: '5px' }}
-                >
-                {props.icon}
-                { props.children }
-            </button>
-    } else if(props.color ==='danger'){
-        return <button 
-            className="AppButton AppButtonDanger"
-            onClick={ props.onClick }
-            style={{ marginRight: '5px' }}
-            >
-            {props.icon}
-            { props.value }
+    return (
+        <button
+            className={`AppButton 
+                        ${props.color === 'grey' ? 'AppButtonGrey' : ''} 
+                        ${props.color === 'danger' ? 'AppButtonDanger' : ''} 
+                        ${props.color === undefined ? 'AppButtonPrimary' : ''}`}
+            onClick={props.onClick}
+        >
+            {props.children || 'Nameless button'}
+            {props.appendIcon}
         </button>
-    }
-
-    else if(props.color === 'alert'){
-                return <button 
-                className="AppButton AppButtonAlert"
-                onClick={ props.onClick }
-                style={{ marginRight: '5px' }}
-            >
-                {props.icon}
-                { props.children }
-            </button>
-    } else if(props.color === 'create') {
-        return <button 
-                className="AppButton AppButtonCreate"
-                onClick={ props.onClick }
-                style={{ marginRight: '5px' }}
-                >
-                {props.icon}
-                { props.value }
-            </button>
-    } else if(props.color === 'grey') {
-        return <button 
-                className="AppButton AppButtonGrey"
-                onClick={ props.onClick }
-                style={{ marginRight: '5px' }}
-                >
-                {props.icon}
-                { props.value }
-            </button>
-    } else {
-        return <button 
-                className="AppButton AppButtonPrimary"
-                onClick={ props.onClick }
-                style={{ marginRight: '5px' }}
-            >
-                {props.icon}
-                { props.children }
-            </button>
-    }
+    );
 
 }
 

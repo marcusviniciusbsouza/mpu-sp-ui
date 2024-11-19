@@ -8,14 +8,17 @@
     cursor: pointer;
     height: 35px;
     font-size: 16px;
+    user-select: none;
 }
 
 .AppButtonGrey{
     background-color: rgb(115, 116, 116);
+    color: white;
 }
 
 .AppButtonPrimary{
     background-color: #09f;
+    color: white;
 }
 
 .AppButtonDanger{

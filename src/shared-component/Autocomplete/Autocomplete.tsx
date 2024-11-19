@@ -4,7 +4,7 @@ import './Autocomplete.css';
 interface AutocompleteProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     options: string[];
-    onOptionSelect?: (value: string) => void; // Renomeado para evitar conflito
+    onOptionSelect?: (value: string) => void;
 }
 
 const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSelect, ...props }) => {
@@ -20,7 +20,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSel
             setFilteredOptions(filtered);
             setIsOptionsVisible(filtered.length > 0);
         } else {
-            setFilteredOptions([]); // Limpa as opções filtradas se o valor estiver vazio
+            setFilteredOptions([]);
             setIsOptionsVisible(false);
         }
     }, [value, options]);
@@ -32,7 +32,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSel
     const handleOptionClick = (option: string) => {
         setValue(option);
         setIsOptionsVisible(false);
-        if (onOptionSelect) { // Alterado para usar onOptionSelect
+        if (onOptionSelect) { 
             onOptionSelect(option);
         }
     };
@@ -46,7 +46,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSel
                         {...props}
                         value={value}
                         onChange={handleChange}
-                        onFocus={() => setIsOptionsVisible(true)} // Mostra opções ao focar
+                        onFocus={() => setIsOptionsVisible(true)}
                     />
                 </label>
             )}

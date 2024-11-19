@@ -5,7 +5,7 @@ import Conteudo from "../../shared-component/Conteudo/Conteudo";
 import Button from "../../shared-component/Button/Button";
 import './Organization.css'
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registry } from "./Service/Service";
 import Grid from "../../shared-component/Grid/Grid";
 import Autocomplete from "../../shared-component/Autocomplete/Autocomplete";
@@ -16,16 +16,19 @@ export class OrganizationModel {
 }
 
 function Organization() {
-
+    const navigate = useNavigate();
     const options = ['Apple', 'Banana', 'Cherry', 'Date', 'Fig', 'Grape'];
+    const org = new OrganizationModel()
+    const [ orgao] = useState('');
+    const [ nome, setNome ] = useState('');
 
     const handleOptionSelect = (value: string) => {
         console.log('Selected:', value);
     };
 
-    const org = new OrganizationModel()
-    const [ orgao] = useState('');
-    const [ nome, setNome ] = useState('');
+    const handleRedirectHome = () => {
+        navigate('/home-orgao')
+    };
 
     function enviarFormulario(e:any) {
         e.preventDefault();
@@ -60,6 +63,14 @@ function Organization() {
                 />
                 <Input label="Nome" />
             </Grid>
+            <div className="MaxSizeButton">
+                <Grid columns={2} gap="5px">
+                    <Button>Cadastrar</Button>
+                    <Button 
+                        onClick={handleRedirectHome}
+                        color="grey">Cancelar</Button>
+                </Grid>
+            </div>
         </Form>
     </Conteudo>
 }

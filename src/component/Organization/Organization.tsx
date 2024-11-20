@@ -121,18 +121,12 @@ function Organization() {
         <Form 
             title={"Cadastro de Órgão"}
             onSubmit={handleSubmit} >
-                <Input 
-                value={form.name}
-                name="name"
-                onChange={handleInputChange}
-                label="NOME" 
-                required/>
             <Grid columns={2} gap="24px">
-            <Autocomplete
-                label="Cidade"
-                options={citys}
-                value={form.address.city.id}
-                onOptionSelect={handleOptionSelect}
+                <Autocomplete
+                    label="Cidade"
+                    options={citys}
+                    value={form.address.city.id}
+                    onOptionSelect={handleOptionSelect}
                 />
                 <Input 
                     value={form.address.cep}
@@ -152,7 +146,15 @@ function Organization() {
                     onChange={handleInputChange}
                     label="E-MAIL" 
                     required/>
+                <div className="clear"></div>
             </Grid>
+            
+            <Input 
+                value={form.name}
+                name="name"
+                onChange={handleInputChange}
+                label="NOME" 
+                required/>
             
             <div className="MaxSizeButton">
                 <Grid columns={2} gap="5px">

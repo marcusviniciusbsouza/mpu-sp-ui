@@ -45,16 +45,16 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
     // Se o campo estiver vazio, mostra todas as opções, caso contrário filtra
     if (value === '') {
-      setFilteredOptions(options);
-      setIsDropdownVisible(true); // Exibe o dropdown
+      setFilteredOptions(options); // Exibe todas as opções
     } else {
       setFilteredOptions(
         options.filter((option) =>
           option.name.toLowerCase().includes(value.toLowerCase())
         )
       );
-      setIsDropdownVisible(true); // Exibe o dropdown se houver valor no campo
     }
+
+    setIsDropdownVisible(true); // Exibe o dropdown
 
     // Verifica se o valor foi alterado
     const hasChanged = value !== initialValue;
@@ -72,9 +72,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   const handleInputFocus = () => {
-    if (inputValue !== '') {
-      setIsDropdownVisible(true);
-    }
+    // Exibe todas as opções ao focar no campo
+    setFilteredOptions(options); // Mostra todas as opções quando o campo é focado
+    setIsDropdownVisible(true); // Exibe o dropdown
   };
 
   const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {

@@ -64,8 +64,8 @@ function Organization() {
             }
             registry(obj)
             Swal.fire({
-                title: 'Cadastro',
-                text: `O Órgão ${obj?.name?.toUpperCase()} foi cadastrado com sucesso`,
+                title: `${id ? 'Edição' : 'Cadastro'}`,
+                text: `O Órgão ${obj?.name?.toUpperCase()} foi ${id ? 'editado' : 'cadastrado'} com sucesso`,
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {

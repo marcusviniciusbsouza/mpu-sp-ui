@@ -13,9 +13,9 @@ export const list = (name?: string, page?: number, size?: number) => {
         .then(response => response.data); 
 }
 
-export const search = (nome?:string) => {
+export const search = (id?:string) => {
     return http
-        .get(`/buscar?Orgao=${nome}`)
+        .get(`${baseURLOrganization}/search-for-id/${id}`)
         .then(response => response.data); 
 } 
 

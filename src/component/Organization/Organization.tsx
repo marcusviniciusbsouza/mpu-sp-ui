@@ -5,26 +5,33 @@ import Conteudo from "../../shared-component/Conteudo/Conteudo";
 import Button from "../../shared-component/Button/Button";
 import './Organization.css'
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
-import { registry, listCity } from "./Service/Service";
+import { useNavigate, useParams } from "react-router-dom";
+import { registry, search, listCity } from "./Service/Service";
 import Grid from "../../shared-component/Grid/Grid";
 import Autocomplete from "../../shared-component/Autocomplete/Autocomplete";
+import { preparedObject, City } from "./OrgaoModel";
 
 const initialFormState = {
+    id: '',
     name: '',
-    cep: '',
-    city: ''
+    address: {
+        cep: '',
+        city: {
+            id: ''
+        }
+    }
 }
 
 function Organization() {
     const navigate = useNavigate()
-    const [form, setForm] = useState(initialFormState)
-    const [ citys, setCitys ] = useState([]);
-    const [ orgao] = useState('');
-    const [ nome, setNome ] = useState('');
+    const { id } = useParams();
+    const [ form, setForm ] = useState(initialFormState)
+    const [citys, setCitys] = useState<City[]>([]);
+    const [ citySelected, setCitySelected ] = useState('');
 
     const handleOptionSelect = (option: any) => {
-        console.log('Opção selecionada:', option.id);
+        console.log(option.id)
+        setCitySelected(option.id)
     };
 
     const handleRedirectHome = () => {
@@ -33,31 +40,45 @@ function Organization() {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, name } = event.target;
-        setForm({
-            ...form,
-            [name]: value
-        })
-    }
+    
+        setForm(prevForm => {
+            if (name === "cep") {
+                return {
+                    ...prevForm,
+                    address: {
+                        ...prevForm.address,
+                        cep: value // Gabriel Filipy: Atualiza corretamente o campo 'cep'
+                    }
+                };
+            }
+    
+            return {
+                ...prevForm,
+                [name]: value
+            };
+        });
+    };
+    
 
-    function sendForm(e: any) {
-        e.preventDefault();
-        console.log(e)
-        // if(orgao === '' && nome === '') {
-        //     alert('É obrigatório preencher todos os campos!')
-        //     return;
-        // }
-
-        // org.orgao = orgao
-        // org.nome = nome
-
-        // try {
-        //     registry(org)
-        //     Swal.fire('Setor', `O Órgão ${ orgao } foi cadastrado com sucesso`, 'success')
-        // } catch(err) {
-        //     if (err instanceof Error) 
-        //         Swal.fire('Oops!', err.message, 'error')
-        // }
-
+    const handleSubmit = () => {
+        try {
+            const obj = preparedObject(form, citySelected, citys);
+            if(obj == null) {
+                return;
+            }
+            registry(obj)
+            Swal.fire({
+                title: 'Cadastro',
+                text: `O Órgão ${obj?.name?.toUpperCase()} foi cadastrado com sucesso`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                //navigate('/home-orgao');
+            });
+        } catch(err) {
+            if (err instanceof Error) 
+                Swal.fire('Erro!', err.message, 'error')
+        }
     }
 
     async function fetchData() {
@@ -72,28 +93,45 @@ function Organization() {
     }
 
     useEffect(() => {
+        if (id) {
+            const _response = search(id);
+            _response.then(data => {
+                setForm({
+                    id: data.id || '',              
+                    name: data.name || '', 
+                    address: data.address
+                });
+            }).catch(error => {
+                Swal.fire("Erro!", error.message, "error");
+            });
+        }
         fetchData()
         // eslint-disable-next-line
-    }, [])
+    }, [id])
 
     return <Conteudo >
         <Form 
             title={"Cadastro de Órgão"}
-            onSubmit={ () => console.log(form) } >
+            onSubmit={handleSubmit} >
             <Grid columns={2} gap="24px">
                 <Autocomplete
+                    value={form.address.city.id}
                     label="CIDADE"
                     options={citys}
                     onOptionSelect={handleOptionSelect} />
                 <Input 
+                    value={form.address.cep}
                     name="cep"
                     onChange={handleInputChange} 
-                    label="CEP" />
+                    label="CEP"
+                    required />
             </Grid>
             <Input 
+                value={form.name}
                 name="name"
                 onChange={handleInputChange}
-                label="NOME" />
+                label="NOME" 
+                required/>
             <div className="MaxSizeButton">
                 <Grid columns={2} gap="5px">
                     <Button>Cadastrar</Button>

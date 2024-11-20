@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './Autocomplete.css';
 
-interface Option {
+export interface Option {
   id: number;
-  nome: string;
+  name: string;
 }
 
 interface AutocompleteProps {
@@ -23,7 +23,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSel
 
     setFilteredOptions(
       options.filter((option) =>
-        option.nome.toLowerCase().includes(value.toLowerCase())
+        option.name.toLowerCase().includes(value.toLowerCase())
       )
     );
 
@@ -31,7 +31,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSel
   };
 
   const handleOptionClick = (option: Option) => {
-    setInputValue(option.nome);
+    setInputValue(option.name);
     setIsDropdownVisible(false);
     onOptionSelect(option);
   };
@@ -76,7 +76,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ label, options, onOptionSel
                 onClick={() => handleOptionClick(option)}
                 tabIndex={0}
               >
-                {option.nome}
+                {option.name}
               </li>
             ))
           ) : (

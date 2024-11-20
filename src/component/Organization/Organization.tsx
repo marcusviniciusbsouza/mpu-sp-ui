@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "../../shared-component/Form/Form";
 import Input from "../../shared-component/Input/Input";
 import Conteudo from "../../shared-component/Conteudo/Conteudo";
@@ -6,7 +6,7 @@ import Button from "../../shared-component/Button/Button";
 import './Organization.css'
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import { registry } from "./Service/Service";
+import { registry, listCity } from "./Service/Service";
 import Grid from "../../shared-component/Grid/Grid";
 import Autocomplete from "../../shared-component/Autocomplete/Autocomplete";
 
@@ -19,13 +19,14 @@ function Organization() {
     const navigate = useNavigate();
 
     const options = [
-        { 'id': 1, 'nome': 'Manaus' }, 
-        { 'id': 2, 'nome': 'Fortaleza' }, 
-        { 'id': 3, 'nome': 'Florianopolis' }, 
-        { 'id': 4, 'nome': 'Belem' }, 
-        { 'id': 5, 'nome': 'Sao Paulo' }, 
-        { 'id': 6, 'nome': 'Rio de Janeiro' }];
+        { 'id': 1, 'name': 'Manaus' }, 
+        { 'id': 2, 'name': 'Fortaleza' }, 
+        { 'id': 3, 'name': 'Florianopolis' }, 
+        { 'id': 4, 'name': 'Belem' }, 
+        { 'id': 5, 'name': 'Sao Paulo' }, 
+        { 'id': 6, 'name': 'Rio de Janeiro' }];
 
+    const [ citys, setCitys ] = useState([]);    
     const org = new OrganizationModel()
     const [ orgao] = useState('');
     const [ nome, setNome ] = useState('');
@@ -59,6 +60,22 @@ function Organization() {
 
     }
 
+    async function fetchData() {
+        try {
+            const _data = await listCity();
+            setCitys(_data)
+        } catch (err) {
+            if (err instanceof Error) {
+                Swal.fire('Erro!', 'Erro ao se conectar com o servidor!', 'error');
+            }
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+        // eslint-disable-next-line
+    }, [])
+
     return <Conteudo >
         <Form 
             title={"Cadastro de Órgão"}
@@ -66,7 +83,7 @@ function Organization() {
             <Grid columns={2} gap="24px">
                 <Autocomplete
                 label="Cidade"
-                options={options}
+                options={citys}
                 onOptionSelect={handleOptionSelect} />
             <Input label="Nome" />
             </Grid>

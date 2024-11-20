@@ -31,3 +31,9 @@ export const buscarIdentificador = (id:string) => {
         .get(`/cadastro-orgao/buscar?id=${id}`)
         .then(response => response.data); 
 }   
+
+export const listCity = () => {
+    return http
+        .get(`${baseURLOrganization}/city/list`)
+        .then(response => response.data); 
+}

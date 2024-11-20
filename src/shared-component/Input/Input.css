@@ -1,12 +1,12 @@
 .AppInput {
-    height: 45px;
-  }
+  height: 45px;
+}
   
-  .AppInput label {
+.AppInput label {
     user-select: none;
     display: flex;
     flex-direction: column;
-  }
+}
   
   .AppInput label span {
     text-transform: uppercase;

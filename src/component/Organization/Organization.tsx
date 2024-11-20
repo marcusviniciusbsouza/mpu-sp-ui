@@ -30,7 +30,6 @@ function Organization() {
     const [ citySelected, setCitySelected ] = useState('');
 
     const handleOptionSelect = (option: any) => {
-        console.log(option.id)
         setCitySelected(option.id)
     };
 
@@ -40,7 +39,6 @@ function Organization() {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, name } = event.target;
-    
         setForm(prevForm => {
             if (name === "cep") {
                 return {
@@ -51,25 +49,11 @@ function Organization() {
                     }
                 };
             }
-    
             return {
                 ...prevForm,
                 [name]: value
             };
         });
-    };
-
-    const handleInputAutocompleteChange = (value: string, hasChanged: boolean) => {
-        var isAlterNameCityInInput = true;
-        if (hasChanged) {
-            citys.forEach(city => {
-                if(value == city.name)
-                    isAlterNameCityInInput = false;
-            });
-        }
-        if(isAlterNameCityInInput) {
-            setCitySelected('') //Gabriel Filipy: Para cair na validação da função 'preparedObject'. 
-        }
     };
     
     const handleSubmit = () => {
@@ -137,14 +121,18 @@ function Organization() {
         <Form 
             title={"Cadastro de Órgão"}
             onSubmit={handleSubmit} >
+                <Input 
+                value={form.name}
+                name="name"
+                onChange={handleInputChange}
+                label="NOME" 
+                required/>
             <Grid columns={2} gap="24px">
             <Autocomplete
                 label="Cidade"
                 options={citys}
                 value={form.address.city.id}
                 onOptionSelect={handleOptionSelect}
-                onInputChange={handleInputAutocompleteChange}
-
                 />
                 <Input 
                     value={form.address.cep}
@@ -152,13 +140,20 @@ function Organization() {
                     onChange={handleInputChange}
                     label="CEP" 
                     required/>
+                <Input 
+                    value={form.address.cep}
+                    name="phone"
+                    onChange={handleInputChange}
+                    label="PHONE" 
+                    required/>
+                <Input 
+                    value={form.address.cep}
+                    name="email"
+                    onChange={handleInputChange}
+                    label="E-MAIL" 
+                    required/>
             </Grid>
-            <Input 
-                value={form.name}
-                name="name"
-                onChange={handleInputChange}
-                label="NOME" 
-                required/>
+            
             <div className="MaxSizeButton">
                 <Grid columns={2} gap="5px">
                     <Button>Cadastrar</Button>

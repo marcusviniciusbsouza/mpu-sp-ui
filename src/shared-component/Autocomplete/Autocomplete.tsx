@@ -43,13 +43,18 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     const value = e.target.value;
     setInputValue(value);
 
-    setFilteredOptions(
-      options.filter((option) =>
-        option.name.toLowerCase().includes(value.toLowerCase())
-      )
-    );
-
-    setIsDropdownVisible(value !== ''); // Mostra o dropdown se houver valor
+    // Se o campo estiver vazio, mostra todas as opções, caso contrário filtra
+    if (value === '') {
+      setFilteredOptions(options);
+      setIsDropdownVisible(true); // Exibe o dropdown
+    } else {
+      setFilteredOptions(
+        options.filter((option) =>
+          option.name.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+      setIsDropdownVisible(true); // Exibe o dropdown se houver valor no campo
+    }
 
     // Verifica se o valor foi alterado
     const hasChanged = value !== initialValue;

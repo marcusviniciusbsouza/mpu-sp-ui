@@ -42,6 +42,7 @@ code {
 
 .MaxSizeButton {
   width: 250px;
+  margin-top: 50px;
 }
 
 @media screen and (max-width: 400px) {

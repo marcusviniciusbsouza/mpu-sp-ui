@@ -10,24 +10,16 @@ import { registry, listCity } from "./Service/Service";
 import Grid from "../../shared-component/Grid/Grid";
 import Autocomplete from "../../shared-component/Autocomplete/Autocomplete";
 
-export class OrganizationModel {
-    orgao?: string
-    nome?: string
+const initialFormState = {
+    name: '',
+    cep: '',
+    city: ''
 }
 
 function Organization() {
-    const navigate = useNavigate();
-
-    const options = [
-        { 'id': 1, 'name': 'Manaus' }, 
-        { 'id': 2, 'name': 'Fortaleza' }, 
-        { 'id': 3, 'name': 'Florianopolis' }, 
-        { 'id': 4, 'name': 'Belem' }, 
-        { 'id': 5, 'name': 'Sao Paulo' }, 
-        { 'id': 6, 'name': 'Rio de Janeiro' }];
-
-    const [ citys, setCitys ] = useState([]);    
-    const org = new OrganizationModel()
+    const navigate = useNavigate()
+    const [form, setForm] = useState(initialFormState)
+    const [ citys, setCitys ] = useState([]);
     const [ orgao] = useState('');
     const [ nome, setNome ] = useState('');
 
@@ -39,24 +31,32 @@ function Organization() {
         navigate('/home-orgao')
     };
 
-    function enviarFormulario(e:any) {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value, name } = event.target;
+        setForm({
+            ...form,
+            [name]: value
+        })
+    }
+
+    function sendForm(e: any) {
         e.preventDefault();
+        console.log(e)
+        // if(orgao === '' && nome === '') {
+        //     alert('É obrigatório preencher todos os campos!')
+        //     return;
+        // }
 
-        if(orgao === '' && nome === '') {
-            alert('É obrigatório preencher todos os campos!')
-            return;
-        }
+        // org.orgao = orgao
+        // org.nome = nome
 
-        org.orgao = orgao
-        org.nome = nome
-
-        try {
-            registry(org)
-            Swal.fire('Setor', `O Órgão ${ orgao } foi cadastrado com sucesso`, 'success')
-        } catch(err) {
-            if (err instanceof Error) 
-                Swal.fire('Oops!', err.message, 'error')
-        }
+        // try {
+        //     registry(org)
+        //     Swal.fire('Setor', `O Órgão ${ orgao } foi cadastrado com sucesso`, 'success')
+        // } catch(err) {
+        //     if (err instanceof Error) 
+        //         Swal.fire('Oops!', err.message, 'error')
+        // }
 
     }
 
@@ -79,14 +79,21 @@ function Organization() {
     return <Conteudo >
         <Form 
             title={"Cadastro de Órgão"}
-            onSubmit={ enviarFormulario } >
+            onSubmit={ () => console.log(form) } >
             <Grid columns={2} gap="24px">
                 <Autocomplete
-                label="Cidade"
-                options={citys}
-                onOptionSelect={handleOptionSelect} />
-            <Input label="Nome" />
+                    label="CIDADE"
+                    options={citys}
+                    onOptionSelect={handleOptionSelect} />
+                <Input 
+                    name="cep"
+                    onChange={handleInputChange} 
+                    label="CEP" />
             </Grid>
+            <Input 
+                name="name"
+                onChange={handleInputChange}
+                label="NOME" />
             <div className="MaxSizeButton">
                 <Grid columns={2} gap="5px">
                     <Button>Cadastrar</Button>

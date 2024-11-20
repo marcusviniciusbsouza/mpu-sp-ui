@@ -1,10 +1,9 @@
 import { Active } from "../../../utils/active-object";
 import http from "../../../utils/http-organization"; 
-import { OrganizationModel } from "../Organization";
 
 const baseURLOrganization = '/v1';
 
-export const registry = (obj: OrganizationModel) => {
+export const registry = (obj: any) => {
     http.post(`${baseURLOrganization}/registry`, obj)
 } 
 

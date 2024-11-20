@@ -27,13 +27,13 @@ interface OrganizationModel {
 }
 
 export const preparedObject = (form: Form, citySelected: string, citys: City[]): OrganizationModel | null => {
-    // const isSelectCity = false
-    // citys.forEach(city => {
-    //     if(parseInt(citySelected) == city.id)
-    //         isSelectCity = true
-    // });
+    var isSelectCity = false
+    citys.forEach(city => {
+        if(citySelected == city.id)
+            isSelectCity = true
+    });
     
-    if (!citySelected) {
+    if (!isSelectCity) {
         Swal.fire('Erro', 'A cidade não foi selecionada.', 'error');
         return null;
     }

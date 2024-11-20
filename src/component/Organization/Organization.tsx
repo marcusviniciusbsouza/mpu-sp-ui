@@ -58,8 +58,20 @@ function Organization() {
             };
         });
     };
-    
 
+    const handleInputAutocompleteChange = (value: string, hasChanged: boolean) => {
+        var isAlterNameCityInInput = true;
+        if (hasChanged) {
+            citys.forEach(city => {
+                if(value == city.name)
+                    isAlterNameCityInInput = false;
+            });
+        }
+        if(isAlterNameCityInInput) {
+            setCitySelected('') //Gabriel Filipy: Para cair na validação da função 'preparedObject'. 
+        }
+    };
+    
     const handleSubmit = () => {
         try {
             const obj = preparedObject(form, citySelected, citys);
@@ -73,7 +85,7 @@ function Organization() {
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                //navigate('/home-orgao');
+                navigate('/home-orgao');
             });
         } catch(err) {
             if (err instanceof Error) 
@@ -92,39 +104,54 @@ function Organization() {
         }
     }
 
-    useEffect(() => {
+    function searchOrganization() {
         if (id) {
             const _response = search(id);
             _response.then(data => {
                 setForm({
-                    id: data.id || '',              
-                    name: data.name || '', 
+                    id: data.id || '',
+                    name: data.name || '',
                     address: data.address
                 });
+                setCitySelected(data.address.city.id);
             }).catch(error => {
                 Swal.fire("Erro!", error.message, "error");
             });
         }
+    }
+
+    useEffect(() => {
+        searchOrganization();
         fetchData()
         // eslint-disable-next-line
     }, [id])
+
+    useEffect(() => {
+        console.log(form.address.city.id)
+        if (form.address.city.id) {
+            setCitySelected(form.address.city.id);
+        }
+    }, [form.address.city.id]);
 
     return <Conteudo >
         <Form 
             title={"Cadastro de Órgão"}
             onSubmit={handleSubmit} >
             <Grid columns={2} gap="24px">
-                <Autocomplete
-                    value={form.address.city.id}
-                    label="CIDADE"
-                    options={citys}
-                    onOptionSelect={handleOptionSelect} />
+            <Autocomplete
+                label="Cidade"
+                options={citys}
+                value={form.address.city.id}
+                onOptionSelect={handleOptionSelect}
+                onInputChange={handleInputAutocompleteChange}
+
+                />
                 <Input 
                     value={form.address.cep}
                     name="cep"
-                    onChange={handleInputChange} 
-                    label="CEP"
-                    required />
+                    onChange={handleInputChange}
+                    label="CEP" 
+                    required/>
             </Grid>
             <Input 
                 value={form.name}

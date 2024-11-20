@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import './Autocomplete.css';
 
-// Define a interface para as opções
+// Definições de tipos para as opções
 export interface Option {
-  id: any; // Pode ajustar o tipo caso tenha certeza do tipo do ID
+  id: any;
   name: string;
 }
 
-// Propriedades aceitas pelo componente Autocomplete
 interface AutocompleteProps {
-  label: string; // Rótulo do input
-  options: Option[]; // Lista de opções para o autocomplete
-  onOptionSelect: (option: Option) => void; // Função chamada ao selecionar uma opção
-  value?: any; // ID da opção selecionada
-  onChange?: (value: string) => void; // Função opcional para notificar mudanças no input
+  label: string;
+  options: Option[];
+  value?: any;
+  onOptionSelect: (option: Option) => void;
+  onInputChange?: (value: string, hasChanged: boolean) => void; // Altere para passar o valor e o status da mudança
 }
 
-const Autocomplete: React.FC<AutocompleteProps> = ({ 
-  label, 
-  options, 
-  onOptionSelect, 
-  value, 
-  onChange 
+const Autocomplete: React.FC<AutocompleteProps> = ({
+  label,
+  options,
+  value,
+  onOptionSelect,
+  onInputChange,
 }) => {
   const [inputValue, setInputValue] = useState<string>(''); // Valor do input
   const [filteredOptions, setFilteredOptions] = useState<Option[]>(options); // Opções filtradas
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // Controle do dropdown
+  const [initialValue, setInitialValue] = useState<string>(''); // Valor inicial
 
   // Atualiza o valor do input baseado no ID recebido como `value`
   useEffect(() => {
     if (value !== undefined) {
-      const selectedOption = options.find(option => option.id === value);
+      const selectedOption = options.find((option) => option.id === value);
       if (selectedOption) {
-        setInputValue(selectedOption.name); // Atualiza o input com o nome correspondente
+        setInputValue(selectedOption.name);
+        setInitialValue(selectedOption.name); // Armazena o valor inicial
       }
     }
   }, [value, options]);
@@ -50,33 +51,32 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
     setIsDropdownVisible(value !== ''); // Mostra o dropdown se houver valor
 
-    if (onChange) {
-      onChange(value); // Notifica mudanças no input
+    // Verifica se o valor foi alterado
+    const hasChanged = value !== initialValue;
+
+    // Notifica a mudança para o componente pai
+    if (onInputChange) {
+      onInputChange(value, hasChanged); // Envia o valor e o status da mudança
     }
   };
 
-  // Trata a seleção de uma opção
   const handleOptionClick = (option: Option) => {
-    setInputValue(option.name); // Define o nome da opção no input
-    setIsDropdownVisible(false); // Fecha o dropdown
-    onOptionSelect(option); // Notifica a seleção da opção
+    setInputValue(option.name);
+    setIsDropdownVisible(false);
+    onOptionSelect(option);
   };
 
-  // Mostra o dropdown ao focar no input
   const handleInputFocus = () => {
     if (inputValue !== '') {
       setIsDropdownVisible(true);
     }
   };
 
-  // Esconde o dropdown ao perder o foco, exceto se clicar em uma opção
   const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const relatedTarget = e.relatedTarget as HTMLElement;
-
     if (relatedTarget && relatedTarget.tagName === 'LI') {
       return; // Não fecha o dropdown se for clicar em uma opção
     }
-
     setIsDropdownVisible(false);
   };
 

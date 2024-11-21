@@ -28,7 +28,7 @@ function Organization() {
     const navigate = useNavigate()
     const { id } = useParams();
     const [ form, setForm ] = useState(initialFormState)
-    const [citys, setCitys] = useState<City[]>([]);
+    const [ citys, setCitys ] = useState<City[]>([]);
     const [ citySelected, setCitySelected ] = useState('');
 
     const handleOptionSelect = (option: any) => {
@@ -114,13 +114,6 @@ function Organization() {
         fetchData()
         // eslint-disable-next-line
     }, [id])
-
-    useEffect(() => {
-        console.log(form.address.city.id)
-        if (form.address.city.id) {
-            setCitySelected(form.address.city.id);
-        }
-    }, [form.address.city.id]);
 
     return <Conteudo >
         <Form 

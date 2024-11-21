@@ -8,6 +8,8 @@ export interface City {
 interface Form {
     id: string;
     name: string;
+    phone: string;
+    email: string;
     address: AddressModel
 }
 
@@ -23,6 +25,8 @@ interface AddressModel {
 interface OrganizationModel {
     id: string;
     name: string;
+    phone: string;
+    email: string;
     address: AddressModel;
 }
 
@@ -50,6 +54,8 @@ export const preparedObject = (form: Form, citySelected: string, citys: City[]):
     const organizationModel: OrganizationModel = {
         id: form.id,
         name: String(form.name),
+        phone: String(form.phone),
+        email: String(form.email),
         address: adressModel
     };
 

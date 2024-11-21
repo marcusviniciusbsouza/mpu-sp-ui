@@ -14,6 +14,8 @@ import { preparedObject, City } from "./OrgaoModel";
 const initialFormState = {
     id: '',
     name: '',
+    phone: '',
+    email: '',
     address: {
         cep: '',
         city: {
@@ -92,9 +94,12 @@ function Organization() {
         if (id) {
             const _response = search(id);
             _response.then(data => {
+                console.log(data)
                 setForm({
                     id: data.id || '',
                     name: data.name || '',
+                    phone: data.phone || '',
+                    email: data.email || '',
                     address: data.address
                 });
                 setCitySelected(data.address.city.id);
@@ -119,7 +124,7 @@ function Organization() {
 
     return <Conteudo >
         <Form 
-            title={"Cadastro de Órgão"}
+            title={`${id ? 'Edição' : 'Cadastro'} de Órgão`}
             onSubmit={handleSubmit} >
             <Grid columns={2} gap="24px">
                 <Autocomplete
@@ -135,16 +140,16 @@ function Organization() {
                     label="CEP" 
                     required/>
                 <Input 
-                    value={form.address.cep}
-                    name="phone"
-                    onChange={handleInputChange}
-                    label="PHONE" 
-                    required/>
-                <Input 
-                    value={form.address.cep}
+                    value={form.email}
                     name="email"
                     onChange={handleInputChange}
                     label="E-MAIL" 
+                    required/>
+                <Input 
+                    value={form.phone}
+                    name="phone"
+                    onChange={handleInputChange}
+                    label="Telefone" 
                     required/>
                 <div className="clear"></div>
             </Grid>
